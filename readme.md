@@ -17,8 +17,8 @@ Follow these steps to set up and run the project:
 
 #### **1. Clone the Repository**
 ```bash
-git clone https://github.com/<your-repo-name>.git
-cd <your-repo-folder>
+git clone https://github.com/00016096/00016096.WAD.Codebase.git
+cd 00016096.WAD.Codebase
 ```
 
 #### **2. Set Up the API (Backend)**
