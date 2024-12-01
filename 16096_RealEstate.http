@@ -1,0 +1,6 @@
+@_16096_RealEstate_HostAddress = http://localhost:5137
+
+GET {{_16096_RealEstate_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
