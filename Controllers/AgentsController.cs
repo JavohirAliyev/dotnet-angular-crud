@@ -2,13 +2,12 @@ using Microsoft.AspNetCore.Mvc;
 using Realestate.Abstractions;
 using Realestate.Dtos;
 using Realestate.Entities;
-using Realestate.Services;
 
 namespace Realestate.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AgentsController(AgentService agentService) : ControllerBase
+public class AgentsController(IAgentService agentService) : ControllerBase
 {
     [HttpGet]
     public async Task<IActionResult> GetAllAgents()

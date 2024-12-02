@@ -24,10 +24,10 @@ public class PropertyService(RealEstateDbContext dbContext) : IPropertyService
     }
 
     public async Task<IEnumerable<RealEstateProperty>> GetAllPropertiesAsync()
-        => await dbContext.Properties!.Include(p => p.Agent).ToListAsync();
+        => await dbContext.Properties!.ToListAsync();
 
     public async Task<RealEstateProperty> GetPropertyByIdAsync(int id)
-        => await dbContext.Properties!.Include(p => p.Agent).FirstOrDefaultAsync(p => p.Id == id)
+        => await dbContext.Properties!.FirstOrDefaultAsync(p => p.Id == id)
             ?? throw new Exception(nameof(RealEstateProperty));
 
     public async Task<RealEstateProperty> UpdatePropertyAsync(int id, RealEstateProperty property)
@@ -36,7 +36,7 @@ public class PropertyService(RealEstateDbContext dbContext) : IPropertyService
         
         existingProperty.Address = property.Address;
         existingProperty.Price = property.Price;
-        existingProperty.Agent = property.Agent;
+        //existingProperty.Agent = property.Agent;
 
         await dbContext.SaveChangesAsync();
         return existingProperty;

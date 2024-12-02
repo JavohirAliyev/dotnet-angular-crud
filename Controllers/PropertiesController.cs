@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Realestate.Abstractions;
 using Realestate.Dtos;
 using Realestate.Entities;
 using Realestate.Services;
@@ -7,7 +8,7 @@ namespace Realestate.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class PropertiesController(PropertyService propertyService) : ControllerBase
+public class PropertiesController(IPropertyService propertyService) : ControllerBase
 {
     [HttpGet]
     public async Task<IActionResult> GetAllProperties()
@@ -18,7 +19,7 @@ public class PropertiesController(PropertyService propertyService) : ControllerB
         {
             Id = p.Id,
             Address = p.Address,
-            Agent = p.Agent,
+            //Agent = p.Agent,
             Price = p.Price
         }));
     }
@@ -28,7 +29,7 @@ public class PropertiesController(PropertyService propertyService) : ControllerB
     {
         var newProperty = new RealEstateProperty {
             Address = dto.Address,
-            Agent = dto.Agent,
+            //Agent = dto.Agent,
             Price = dto.Price
         };
         var createdProperty = await propertyService.CreatePropertyAsync(newProperty);
@@ -46,7 +47,7 @@ public class PropertiesController(PropertyService propertyService) : ControllerB
         {
             Id = property.Id,
             Address = property.Address,
-            Agent = property.Agent,
+            //Agent = property.Agent,
             Price = property.Price
         });
     }
@@ -57,7 +58,7 @@ public class PropertiesController(PropertyService propertyService) : ControllerB
         var property = new RealEstateProperty
         {
             Address = dto.Address,
-            Agent = dto.Agent,
+            //Agent = dto.Agent,
             Price = dto.Price
         };
 
@@ -68,7 +69,7 @@ public class PropertiesController(PropertyService propertyService) : ControllerB
         {
             Id = property.Id,
             Address = property.Address,
-            Agent = property.Agent,
+            //Agent = property.Agent,
             Price = property.Price
         });
     }

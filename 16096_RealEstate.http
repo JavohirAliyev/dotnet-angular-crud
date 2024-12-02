@@ -1,6 +1,24 @@
-@_16096_RealEstate_HostAddress = http://localhost:5137
+@server = http://localhost:5137
 
-GET {{_16096_RealEstate_HostAddress}}/weatherforecast/
+GET {{server}}//
 Accept: application/json
 
 ###
+
+POST {{server}}/api/Agents
+Accept: : application/json
+
+{
+    "name": "John Doe",
+    "phone": "123-456-7890",
+    "properties": [
+        {
+            "address": "123 Main Street",
+            "price": 250000.00
+        },
+        {
+            "address": "456 Elm Street",
+            "price": 300000.00
+        }
+    ]
+}
