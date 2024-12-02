@@ -1,20 +1,53 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
 <app-header></app-header>
 <div class="content">
     <div class="create-buttons">
         <button class="newagent">New Agent</button>
         <button class="newproperty">New Property</button>
     </div>
-    @if (propertiesWithAgents$ | async; as properties) {
-        @if (properties.length > 0) {
-            @for (prop of properties; track $index) {
-                <p>ID: {{ prop.id }}</p>
-                <p>Address: {{ prop.address }}</p>
-                <p>Price: {{ prop.price }}</p>
-                <p>Agent Id: {{ prop.agentId }}</p>
-                <p>Agent Name: {{ prop.agentName }}</p>
+
+    <div class="card-container">
+        @if (propertiesWithAgents$ | async; as properties) {
+            @if (properties.length > 0) {
+                @for (prop of properties; track $index) {
+                    <div class="card">
+                        <div class="id-and-buttons">
+                            <p class="property-id">ID: {{ prop.id }}</p>
+                            <div class="action-icons">
+                                <i class="fa-regular fa-pen-to-square fa-2x edit-icon"></i>
+                                <i class="fa-solid fa-trash fa-2x delete-icon"></i>
+                            </div>
+                        </div>
+                        <div class="property-details">
+                            <p><strong>Address:</strong> {{ prop.address }}</p>
+                            <p><strong>Price:</strong> ${{ prop.price }}</p>
+                            <p><strong>Agent:</strong> {{ prop.agentName }}</p>
+                            <p><strong>Phone:</strong> {{ prop.agentNumber }}</p>
+                        </div>
+                    </div>
+                }
+            } @else {
+                <p class="no-properties">No properties found!</p>
             }
-        } @else {
-            <p>No properties found!</p>
         }
-    }
+    </div>
+
+    <div class="pagination-container">
+        <button 
+            class="pagination-button" 
+            (click)="prevPage()" 
+            [disabled]="currentPage === 1">
+            Previous
+        </button>
+        
+        <span>Page {{ currentPage }} of {{ totalPages }}</span>
+        
+        <button 
+            class="pagination-button" 
+            (click)="nextPage()" 
+            [disabled]="currentPage === totalPages">
+            Next
+        </button>
+    </div>
 </div>

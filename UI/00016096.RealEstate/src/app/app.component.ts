@@ -5,8 +5,8 @@
   import { AsyncPipe } from '@angular/common';
   import { Property } from '../Entities/property.entity';
   import { HeaderComponent } from "./header/header.component";
-  import { combineLatest, map, Observable } from 'rxjs';
-
+  import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs';
+  
 
   @Component({
     selector: 'app-root',
@@ -23,17 +23,17 @@
     propertiesWithAgents$: Observable<any[]>;
 
   constructor() {
-    this.propertiesWithAgents$ = combineLatest([this.getProperties(), this.getAgents()]).pipe(
+    this.propertiesWithAgents$ = combineLatest([this.getProperties(), this.getAgents(), this.currentPage$]).pipe(
       map(([properties, agents]) =>
         properties.map(prop => ({
           ...prop,
-          agentName: agents.find(agent => agent.id === prop.agentId)?.name || 'Unknown'
-        }))
+          agentName: agents.find(agent => agent.id === prop.agentId)?.name || 'Unknown',
+          agentNumber: agents.find(agent => agent.id === prop.agentId)?.phone || 'Unknown'
+        })).slice((this.currentPage-1)*this.pageSize, this.currentPage*this.pageSize)
       )
     );
   }
 
-    
     private getAgents(): Observable<Agent[]> {
       return this.http.get<Agent[]>('http://localhost:5137/api/Agents');
     }
@@ -50,5 +50,38 @@
       return this.http.get<Agent>(`http://localhost:5137/api/Agents/${agentId}`).pipe(
         map(agent => agent.name)
       );
+    }
+
+    private currentPageSubject = new BehaviorSubject<number>(1); // Current page state
+    currentPage$ = this.currentPageSubject.asObservable();
+    pageSize = 6;
+
+    paginatedProperties$ = combineLatest([this.properties$, this.currentPage$]).pipe(
+      map(([properties, currentPage]) => {
+        const startIndex = (currentPage - 1) * this.pageSize;
+        return properties.slice(startIndex, startIndex + this.pageSize);
+      })
+    );
+    totalPages = 1; // Total number of pages
+    currentPage = 1;
+    ngOnInit() {
+      // Calculate total pages after fetching properties
+      this.properties$.subscribe(properties => {
+        this.totalPages = Math.ceil(properties.length / this.pageSize);
+      });
+    }
+  
+    nextPage() {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+        this.currentPageSubject.next(this.currentPage);
+      }
+    }
+  
+    prevPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+        this.currentPageSubject.next(this.currentPage);
+      }
     }
   }

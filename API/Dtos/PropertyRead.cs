@@ -1,6 +1,3 @@
-
-using Realestate.Entities;
-
 namespace Realestate.Dtos;
 
 public class PropertyRead

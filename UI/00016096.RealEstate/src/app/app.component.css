@@ -1,39 +1,148 @@
+.content {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+}
+
 .create-buttons {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin: 20px;
-  }
-  
-  .create-buttons button {
-    padding: 10px 20px;
-    font-size: 1rem;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  
-  .newagent {
-    background: linear-gradient(135deg, #ff7e5f, #feb47b);
-    color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  }
-  
-  .newagent:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
-  }
-  
-  .newproperty {
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
-    color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  }
-  
-  .newproperty:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
-  }
-  
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin: 20px;
+}
+
+.create-buttons button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px; 
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.newagent {
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.newagent:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+.newproperty {
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.newproperty:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.id-and-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.property-id {
+  font-weight: bold;
+  color: #333;
+}
+
+.action-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-icon {
+  color: rgb(32, 196, 86);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.edit-icon:hover {
+  color: rgb(24, 150, 66);
+}
+
+.delete-icon {
+  color: rgb(255, 0, 0);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.delete-icon:hover {
+  color: rgb(200, 0, 0);
+}
+
+.property-details p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.no-properties {
+  text-align: center;
+  font-size: 18px;
+  color: #666;
+  margin-top: 20px;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  gap: 10px;
+  font-family: Arial, sans-serif;
+}
+
+.pagination-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.pagination-button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.pagination-container span {
+  font-size: 16px;
+  color: #555;
+}
