@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace _16096_RealEstate.Migrations
 {
     [DbContext(typeof(RealEstateDbContext))]
-    [Migration("20241202101517_fixedProperties")]
-    partial class fixedProperties
+    [Migration("20241202160404_initialMigration")]
+    partial class initialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,7 +53,7 @@ namespace _16096_RealEstate.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("AgentId")
+                    b.Property<int>("AgentId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
@@ -70,7 +70,9 @@ namespace _16096_RealEstate.Migrations
                 {
                     b.HasOne("Realestate.Entities.Agent", null)
                         .WithMany("Properties")
-                        .HasForeignKey("AgentId");
+                        .HasForeignKey("AgentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Realestate.Entities.Agent", b =>

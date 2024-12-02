@@ -28,8 +28,7 @@ public class AgentsController(IAgentService agentService) : ControllerBase
     {
         var newAgent = new Agent {
             Name = dto.Name,
-            Phone = dto.Phone,
-            Properties = dto.Properties
+            Phone = dto.Phone
         };
         var createdAgent = await agentService.CreateAgentAsync(newAgent);
         

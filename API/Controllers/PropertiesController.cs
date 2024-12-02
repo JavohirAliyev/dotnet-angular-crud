@@ -19,7 +19,7 @@ public class PropertiesController(IPropertyService propertyService) : Controller
         {
             Id = p.Id,
             Address = p.Address,
-            //Agent = p.Agent,
+            AgentId = p.AgentId,
             Price = p.Price
         }));
     }
@@ -29,8 +29,8 @@ public class PropertiesController(IPropertyService propertyService) : Controller
     {
         var newProperty = new RealEstateProperty {
             Address = dto.Address,
-            //Agent = dto.Agent,
-            Price = dto.Price
+            Price = dto.Price,
+            AgentId = dto.AgentId
         };
         var createdProperty = await propertyService.CreatePropertyAsync(newProperty);
         
@@ -47,7 +47,7 @@ public class PropertiesController(IPropertyService propertyService) : Controller
         {
             Id = property.Id,
             Address = property.Address,
-            //Agent = property.Agent,
+            AgentId = property.AgentId,
             Price = property.Price
         });
     }
@@ -58,7 +58,6 @@ public class PropertiesController(IPropertyService propertyService) : Controller
         var property = new RealEstateProperty
         {
             Address = dto.Address,
-            //Agent = dto.Agent,
             Price = dto.Price
         };
 
@@ -69,7 +68,7 @@ public class PropertiesController(IPropertyService propertyService) : Controller
         {
             Id = property.Id,
             Address = property.Address,
-            //Agent = property.Agent,
+            AgentId = property.AgentId,
             Price = property.Price
         });
     }
