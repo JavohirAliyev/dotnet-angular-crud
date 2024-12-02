@@ -1,6 +1,6 @@
 namespace Realestate.Entities;
 
-public class Property
+public class RealEstateProperty
 {
     public int Id { get; set; }
     public string? Address { get; set; }

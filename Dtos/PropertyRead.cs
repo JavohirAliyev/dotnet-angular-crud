@@ -3,7 +3,7 @@ using Realestate.Entities;
 
 namespace Realestate.Dtos;
 
-public class PropertRead
+public class PropertyRead
 {
     public int Id { get; set; }
     public string? Address { get; set; }

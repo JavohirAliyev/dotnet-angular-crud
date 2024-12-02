@@ -8,5 +8,5 @@ public class AgentRead
     public string? Name { get; set; }
     public string? Phone { get; set; }
 
-    public IList<Property> Properties { get; set; } = null!;
+    public IList<RealEstateProperty> Properties { get; set; } = null!;
 }
