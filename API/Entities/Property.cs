@@ -1,5 +1,5 @@
 namespace Realestate.Entities;
-
+//00016096
 public class RealEstateProperty
 {
     public int Id { get; set; }

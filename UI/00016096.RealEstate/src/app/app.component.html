@@ -3,8 +3,8 @@
 <app-header></app-header>
 <div class="content">
     <div class="create-buttons">
-        <button class="newagent">New Agent</button>
-        <button class="newproperty">New Property</button>
+        <button (click)="newAgent()" class="newagent">New Agent</button>
+        <button (click)="newProperty()" class="newproperty">New Property</button>
     </div>
 
     <div class="card-container">

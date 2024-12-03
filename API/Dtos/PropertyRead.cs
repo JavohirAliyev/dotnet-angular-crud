@@ -1,5 +1,5 @@
 namespace Realestate.Dtos;
-
+//00016096
 public class PropertyRead
 {
     public int Id { get; set; }

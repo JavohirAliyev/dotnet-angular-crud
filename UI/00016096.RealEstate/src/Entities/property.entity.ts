@@ -1,7 +1,6 @@
-import { Agent } from "./agent.entity";
-
+//00016096
 export interface Property {
-    id: number;
+    id?: number;
     address: string;
     price: number;
     agentId: number;

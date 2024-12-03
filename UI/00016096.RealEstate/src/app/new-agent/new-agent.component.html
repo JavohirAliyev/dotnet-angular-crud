@@ -1,0 +1,36 @@
+<form (ngSubmit)="onAgentFormSubmit()" [formGroup]="agentForm">
+  <h1 mat-dialog-title class="dialog-title">Create Agent</h1>
+  <div mat-dialog-content class="form-content">
+    <!-- Agent Name Field -->
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Agent Name</mat-label>
+      <input
+        formControlName="name"
+        matInput
+        placeholder="Enter agent name"
+        required
+        aria-label="Agent Name"
+      />
+      <mat-error *ngIf="agentForm.get('name')?.invalid && agentForm.get('name')?.touched">
+        Agent name is required.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Phone Number Field -->
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Phone Number</mat-label>
+      <input
+        formControlName="phone"
+        matInput
+        placeholder="Enter phone number"
+        type="tel"
+        aria-label="Phone Number"
+      />
+    </mat-form-field>
+  </div>
+  
+  <div mat-dialog-actions class="dialog-actions">
+    <button mat-button mat-dialog-close color="warn" class="cancel-btn">Cancel</button>
+    <button mat-button color="primary" type="submit" [disabled]="agentForm.invalid" class="submit-btn">Create</button>
+  </div>
+</form>

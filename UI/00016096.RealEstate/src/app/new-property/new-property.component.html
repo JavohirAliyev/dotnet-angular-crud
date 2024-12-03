@@ -1,0 +1,55 @@
+<form (ngSubmit)="onPropertyFormSubmit()" [formGroup]="propertyForm" class="property-form">
+  <h1 class="form-title">Create Property</h1>
+  <div class="form-group">
+    <label for="address" class="form-label">Address</label>
+    <input 
+      id="address"
+      type="text" 
+      class="form-control" 
+      formControlName="address" 
+      placeholder="Enter property address"
+    />
+  </div>
+  <div class="form-group">
+    <label for="price" class="form-label">Price</label>
+    <input 
+      id="price"
+      type="number" 
+      class="form-control" 
+      formControlName="price" 
+      placeholder="Enter property price"
+    />
+  </div>
+  <div class="form-group">
+    <label for="agentId" class="form-label">Agent</label>
+    <select 
+      id="agentId"
+      class="form-select" 
+      formControlName="agentId"
+    >
+      <option value="">Pick an agent</option>
+      <option 
+        *ngFor="let agent of agents" 
+        [value]="agent.id"
+      >
+        {{agent.name}}
+      </option>
+    </select>
+  </div>
+
+  <div class="form-actions">
+    <button 
+      type="button" 
+      class="btn btn-secondary"
+      (click)="onCancel()"
+    >
+      Cancel
+    </button>
+    <button 
+      type="submit" 
+      class="btn btn-primary"
+    >
+      Save
+    </button>
+  </div>
+</form>

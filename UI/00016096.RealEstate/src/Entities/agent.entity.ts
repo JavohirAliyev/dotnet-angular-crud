@@ -1,5 +1,6 @@
 export interface Agent {
-    id: number;
+    id?: number;
     name: string;
     phone: string;
-}
+    properties: any[]
+}//00016096

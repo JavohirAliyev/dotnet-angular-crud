@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Realestate.Abstractions;
 using Realestate.Dtos;
 using Realestate.Entities;
-
+//00016096
 namespace Realestate.Controllers;
 
 [ApiController]

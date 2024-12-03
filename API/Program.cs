@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Realestate.Abstractions;
 using Realestate.Services;
-
+//00016096
 var builder = WebApplication.CreateBuilder(args);
 
 //builder.Services.AddOpenApi();

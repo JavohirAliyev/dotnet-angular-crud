@@ -1,16 +1,18 @@
   import { HttpClient, HttpClientModule } from '@angular/common/http';
   import { Component, inject } from '@angular/core';
-  import { RouterOutlet } from '@angular/router';
   import { Agent } from '../Entities/agent.entity';
   import { AsyncPipe } from '@angular/common';
   import { Property } from '../Entities/property.entity';
   import { HeaderComponent } from "./header/header.component";
   import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs';
-  
+  import {MatDialog, MatDialogModule} from "@angular/material/dialog"
+  import { NewAgentComponent } from './new-agent/new-agent.component';
+import { NewPropertyComponent } from './new-property/new-property.component';
 
+//00016096
   @Component({
     selector: 'app-root',
-    imports: [RouterOutlet, HttpClientModule, AsyncPipe, HeaderComponent],
+    imports: [HttpClientModule, AsyncPipe, HeaderComponent, MatDialogModule],
     templateUrl: './app.component.html',
     styleUrl: './app.component.css'
   })
@@ -22,7 +24,7 @@
     properties$ = this.getProperties();
     propertiesWithAgents$: Observable<any[]>;
 
-  constructor() {
+  constructor(private dialog:MatDialog) {
     this.propertiesWithAgents$ = combineLatest([this.getProperties(), this.getAgents(), this.currentPage$]).pipe(
       map(([properties, agents]) =>
         properties.map(prop => ({
@@ -52,6 +54,26 @@
       );
     }
 
+    newAgent(){
+      var agentForm = this.dialog.open(NewAgentComponent,{
+        width: '60%',
+        height: '400px'
+      })
+    }
+
+    newProperty(){
+      var propertyForm = this.dialog.open(NewPropertyComponent,{
+        width: '60%',
+        height: '500px'
+      })
+    }
+
+    onNewAgentFormSubmit(){
+      const addAgentRequest = {
+        name: this.newAgent.name
+      }
+    }
+
     private currentPageSubject = new BehaviorSubject<number>(1); // Current page state
     currentPage$ = this.currentPageSubject.asObservable();
     pageSize = 6;
@@ -62,10 +84,11 @@
         return properties.slice(startIndex, startIndex + this.pageSize);
       })
     );
-    totalPages = 1; // Total number of pages
+
+    totalPages = 1;
     currentPage = 1;
+
     ngOnInit() {
-      // Calculate total pages after fetching properties
       this.properties$.subscribe(properties => {
         this.totalPages = Math.ceil(properties.length / this.pageSize);
       });
