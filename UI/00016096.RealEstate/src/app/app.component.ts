@@ -7,7 +7,7 @@
   import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs';
   import {MatDialog, MatDialogModule} from "@angular/material/dialog"
   import { NewAgentComponent } from './new-agent/new-agent.component';
-import { NewPropertyComponent } from './new-property/new-property.component';
+  import { NewPropertyComponent } from './new-property/new-property.component';
 
 //00016096
   @Component({
@@ -52,6 +52,31 @@ import { NewPropertyComponent } from './new-property/new-property.component';
       return this.http.get<Agent>(`http://localhost:5137/api/Agents/${agentId}`).pipe(
         map(agent => agent.name)
       );
+    }
+  
+    deleteProperty(propertyId: number) {
+    this.http.delete(`http://localhost:5137/api/Properties/${propertyId}`).subscribe({
+      next: () => {
+        location.reload();
+      },
+      error: (error) => {
+        console.error('Error deleting property', error);
+        alert('Failed to delete property');
+      }
+      });
+    }
+
+    editProperty(property: Property, propertyId: number) {
+      const dialogRef = this.dialog.open(NewPropertyComponent, {
+        width: '400px',
+        data: property
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+              location.reload();
+        }
+      });
     }
 
     newAgent(){

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,9 +10,11 @@ import { Agent } from '../../Entities/agent.entity';
 import { Property } from '../../Entities/property.entity';
 import { Observable } from 'rxjs/internal/Observable';
 import { MatSelectModule } from '@angular/material/select';
-//00016096
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-new-property',
+  standalone: true,
   imports: [
     CommonModule,
     MatDialogModule,
@@ -25,12 +27,32 @@ import { MatSelectModule } from '@angular/material/select';
   templateUrl: './new-property.component.html',
   styleUrl: './new-property.component.css'
 })
-export class NewPropertyComponent implements OnInit{
-  constructor(private http: HttpClient,
-              private fb: FormBuilder,
-              private dialogRef: MatDialogRef<NewPropertyComponent>) {}
+
+export class NewPropertyComponent implements OnInit {
+  isEditMode = false;
+  propertyForm: FormGroup;
 
   agents: Agent[] = [];
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: Property,
+    private http: HttpClient,
+    private dialogRef: MatDialogRef<NewPropertyComponent>
+  ) {
+    if (data) {
+      this.isEditMode = true;
+    }
+    this.propertyForm = new FormGroup({
+      address: new FormControl(data?.address || ''),
+      price: new FormControl(data?.price || 0),
+      agentId: new FormControl(data?.agentId || 0),
+    });
+  }
+
+  
+  ngOnInit(): void {
+    this.loadAgents();
+  }
 
   loadAgents() {
     this.getAgents().subscribe((agents: Agent[]) => {
@@ -38,42 +60,57 @@ export class NewPropertyComponent implements OnInit{
     });
   }
 
-  ngOnInit(): void {
-    this.loadAgents();
-  }
-
   private getAgents(): Observable<Agent[]> {
     return this.http.get<Agent[]>('http://localhost:5137/api/Agents');
   }
-  
-  propertyForm = new FormGroup({
-    address: new FormControl<string>(''),
-    price: new FormControl<number>(0),
-    agentId: new FormControl<number>(1)
-  });
 
   onPropertyFormSubmit() {
-    const addPropertyRequest: Property = {
+    const propertyRequest: Property = {
       address: this.propertyForm.value.address || '',
       price: this.propertyForm.value.price || 0,
       agentId: this.propertyForm.value.agentId || 1
     };
-  
-    this.addProperty(addPropertyRequest).subscribe({
-      next: () => {
-        alert('Property was added successfully');
-      },
-      error: (error) => {
-        alert('Property could not be added');
-      }
-    })
+
+    if (this.isEditMode) {
+      this.updateProperty(this.data.id!, propertyRequest);
+    } else {
+      this.addProperty(propertyRequest);
+    }
   }
 
-  onCancel(){
+  private updateProperty(id: number, property: Property) {
+    this.http.put<Property>(`http://localhost:5137/api/Properties/${id}`, property)
+      .subscribe({
+        next: () => {
+          alert('Property was updated successfully');
+          this.clearEditingState();
+          this.dialogRef.close(property);
+        },
+        error: (error) => {
+          alert('Property could not be updated');
+        }
+      });
+  }
+
+  private addProperty(property: Property) {
+    this.http.post<Property>('http://localhost:5137/api/Properties', property)
+      .subscribe({
+        next: () => {
+          alert('Property was added successfully');
+          this.dialogRef.close(property);
+        },
+        error: (error) => {
+          alert('Property could not be added');
+        }
+      });
+  }
+
+  private clearEditingState() {
+    localStorage.removeItem('propertyToEdit');
+  }
+
+  onCancel() {
+    this.clearEditingState();
     this.dialogRef.close();
-  }
-
-  addProperty(property: Property) {
-    return this.http.post<Property>('http://localhost:5137/api/Properties', property);
   }
 }

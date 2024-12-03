@@ -56,8 +56,10 @@ public class PropertiesController(IPropertyService propertyService) : Controller
     {
         var property = new RealEstateProperty
         {
+            Id = id,
             Address = dto.Address,
-            Price = dto.Price
+            Price = dto.Price,
+            AgentId = dto.AgentId
         };
 
         var updatedProperty = await propertyService.UpdatePropertyAsync(id, property);

@@ -1,5 +1,7 @@
 <form (ngSubmit)="onPropertyFormSubmit()" [formGroup]="propertyForm" class="property-form">
-  <h1 class="form-title">Create Property</h1>
+  <h1 class="form-title">
+    {{ isEditMode ? 'Edit Property' : 'Create Property' }}
+  </h1>
   <div class="form-group">
     <label for="address" class="form-label">Address</label>
     <input 

@@ -15,8 +15,8 @@
                         <div class="id-and-buttons">
                             <p class="property-id">ID: {{ prop.id }}</p>
                             <div class="action-icons">
-                                <i class="fa-regular fa-pen-to-square fa-2x edit-icon"></i>
-                                <i class="fa-solid fa-trash fa-2x delete-icon"></i>
+                                <i class="fa-regular fa-pen-to-square fa-2x edit-icon" (click)="editProperty(prop, prop.id)"></i>
+                                <i class="fa-solid fa-trash fa-2x delete-icon" (click)="deleteProperty(prop.id)"></i>
                             </div>
                         </div>
                         <div class="property-details">
