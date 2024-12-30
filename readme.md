@@ -1,7 +1,4 @@
-This application was developed for Web Application module, as coursework portfolio project @ WIUT by student ID: 16096.
-Topic Selection:
-My student ID is 16096. When divided by 20, the remainder is 16.
-This matches with topic number 16: Real Estate Listing.
+This application was developed for Web Application module, as coursework portfolio project @
 
 ### **Prerequisites**
 In order to run this project, you need the following installed on your computer:  
@@ -16,10 +13,7 @@ In order to run this project, you need the following installed on your computer:
 Follow these steps to set up and run the project:
 
 #### **1. Clone the Repository**
-```bash
-git clone https://github.com/00016096/00016096.WAD.Codebase.git
-cd 00016096.WAD.Codebase
-```
+Clone the repository using HTTP or SSH. You can do it by just downloading the ZIP file as well.
 
 #### **2. Set Up the API (Backend)**
 1. Open the backend project folder in your IDE.  
@@ -35,7 +29,6 @@ cd 00016096.WAD.Codebase
    ```bash
    dotnet run
    ```
-5. Open Swagger to test API endpoints.
 
 #### **3. Set Up the SPA (Frontend)**
 1. Navigate to the Angular project folder:
